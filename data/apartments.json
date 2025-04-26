@@ -1,0 +1,28 @@
+
+
+[
+    {
+      "id": 1,
+      "price": 900,
+      "location": "1230 Rue Peel, Montréal, QC",
+      "university": "McGill",
+      "bedrooms": 2,
+      "bathrooms": 1
+    },
+    {
+      "id": 2,
+      "price": 750,
+      "location": "1455 Boulevard de Maisonneuve Ouest, Montréal, QC",
+      "university": "Concordia",
+      "bedrooms": 1,
+      "bathrooms": 1
+    },
+    {
+      "id": 3,
+      "price": 1100,
+      "location": "3200 Rue Édouard-Montpetit, Montréal, QC",
+      "university": "UDEM",
+      "bedrooms": 3,
+      "bathrooms": 2
+    }
+  ]
