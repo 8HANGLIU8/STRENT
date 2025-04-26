@@ -38,7 +38,8 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="*" element={<Navigate to="/login" />} /> {/* redirect */}
+        <Route path="/" element={<Navigate to="/" />} /> {/* redirect */}
+        <Route path="*" element={<Navigate to="/404" />} /> {/* redirect */}
       </Routes>
     </Router>
   );
