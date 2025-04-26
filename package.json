@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/8HANGLIU8/STRENT/issues"
   },
-  "homepage": "https://github.com/8HANGLIU8/STRENT#readme"
+  "homepage": "https://github.com/8HANGLIU8/STRENT#readme",
+  "dependencies": {
+    "react-router-dom": "^7.5.2",
+    "react-scripts": "^5.0.1"
+  }
 }

@@ -1,5 +1,7 @@
-import logo from './logo.svg';
+/*import logo from './logo.svg';
 import './App.css';
+
+
 
 function App() {
   return (
@@ -19,6 +21,25 @@ function App() {
         </a>
       </header>
     </div>
+  );
+}
+
+export default App;
+
+*/
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
+    </Router>
   );
 }
 
