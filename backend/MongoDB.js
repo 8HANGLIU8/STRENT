@@ -1,0 +1,34 @@
+require('dotenv').config();  // load .env variables
+const { MongoClient } = require('mongodb');
+const express = require('express');
+
+const app = express();
+app.use(express.json());
+
+const uri = process.env.MONGODB_URI; // <--- THIS pulls from .env
+const client = new MongoClient(uri);
+
+async function main() {
+  await client.connect();
+  console.log("Connected to MongoDB!");
+
+  const db = client.db('yourDatabaseName'); 
+  const usersCollection = db.collection('users');
+
+  app.post('/users', async (req, res) => {
+    const newUser = req.body;
+    const result = await usersCollection.insertOne(newUser);
+    res.send(result);
+  });
+
+  app.get('/users', async (req, res) => {
+    const users = await usersCollection.find().toArray();
+    res.send(users);
+  });
+
+  app.listen(3000, () => {
+    console.log('Server running on http://localhost:3000');
+  });
+}
+
+main().catch(console.error);
