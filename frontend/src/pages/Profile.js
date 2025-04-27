@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
 
 function Profile() {
   const { user, setUser } = useUser();
+  const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState('my-profile');
   const [name, setName] = useState('Félix');
   const [age, setAge] = useState('20');
@@ -12,7 +13,18 @@ function Profile() {
   const [description, setDescription] = useState('I’m a physics student passionate about robotics and parkour.');
 
   const handleSave = () => {
-    setUser({ ...user, institution });
+    setUser({
+      ...user,
+      name,
+      age,
+      institution,
+      studyProgram,
+      description,
+    });
+  };
+
+  const handleLogout = () => {
+    navigate('/welcome');
   };
 
   const renderSection = () => {
@@ -41,7 +53,7 @@ function Profile() {
                   <option>Smoker</option>
                 </select>
               </div>
-              <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+              <button type="button" className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
                 Save Preferences
               </button>
             </form>
@@ -56,7 +68,7 @@ function Profile() {
             </p>
             <div className="mb-4">
               <p className="text-gray-700">No payment methods added.</p>
-              <button className="text-blue-500 hover:underline">
+              <button type="button" className="text-blue-500 hover:underline">
                 Add Payment Method
               </button>
             </div>
@@ -114,6 +126,7 @@ function Profile() {
                 />
               </div>
               <button
+                type="button"
                 onClick={handleSave}
                 className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
               >
@@ -127,7 +140,7 @@ function Profile() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex">
-      <div className="w-64 bg-gray-800 text-white p-4 h-screen">
+      <div className="w-64 bg-gray-800 text-white p-4 h-screen overflow-y-auto">
         <h2 className="text-xl font-bold mb-4">Profile Settings</h2>
         <ul className="space-y-2">
           <li>
@@ -158,6 +171,14 @@ function Profile() {
               }`}
             >
               Billing Info
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={handleLogout}
+              className="w-full text-left p-2 rounded-lg bg-red-500 hover:bg-red-600 mt-4"
+            >
+              Logout
             </button>
           </li>
         </ul>
