@@ -249,10 +249,16 @@ function TenantHome() {
                 ) : (
                   <Map
                     center={mapCenter}
-                    zoom={12}
                     style={{ height: '100%', width: '100%' }}
                     mapTypeId="roadmap"
                     options={{
+                      disableDefaultUI: false, // Ensure default UI is enabled
+                      zoomControl: true, // Show zoom controls
+                      scrollwheel: true, // Allow mouse wheel zooming
+                      draggable: true, // Allow panning
+                      gestureHandling: 'greedy', // Enable all gestures (zoom, pan, etc.)
+                      minZoom: 11, // Minimum zoom level
+                      maxZoom: 18, // Maximum zoom level
                       styles: [
                         { featureType: "poi", stylers: [{ visibility: "off" }] },
                         { featureType: "transit", stylers: [{ visibility: "off" }] },
@@ -260,7 +266,7 @@ function TenantHome() {
                         { featureType: "road", elementType: "geometry", stylers: [{ color: "#ffffff" }] },
                       ]
                     }}
-                    onMapLoad={(map) => {
+                    onLoad={(map) => {
                       mapRef.current = map;
                     }}
                   >
@@ -271,12 +277,12 @@ function TenantHome() {
                         onClick={() => setSelectedApartment(apartment)}
                         icon={{
                           url: `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
-                              <circle cx="20" cy="20" r="18" fill="red" stroke="white" stroke-width="2"/>
-                              <text x="20" y="25" font-size="20" font-family="Arial" fill="white" text-anchor="middle">${apartment.label}</text>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+                              <circle cx="15" cy="15" r="13" fill="red" stroke="white" stroke-width="2"/>
+                              <text x="15" y="19" font-size="15" font-family="Arial" fill="white" text-anchor="middle">${apartment.label}</text>
                             </svg>
                           `)}`,
-                          scaledSize: new window.google.maps.Size(40, 40)
+                          scaledSize: new window.google.maps.Size(30, 30)
                         }}
                       />
                     ))}

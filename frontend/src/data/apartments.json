@@ -78,5 +78,89 @@
     "bathrooms": 1,
     "price": 700,
     "rating": 4.4
+  },
+  {
+    "location": "2175 Lakeshore Rd, John Abbott College-Stewart apartments",
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "price": 1200,
+    "availability": true
+  },
+  {
+    "location": "2112 Saint-Anne-de-Bellevue, Quebec H9X 3L9",
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "price": 1800,
+    "availability": false
+  },
+  {
+    "location": "1234 Rue Sainte-Catherine, Downtown Montreal, QC H3G 1P1",
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "price": 1600,
+    "availability": true
+  },
+  {
+    "location": "4567 Avenue du Parc, Plateau-Mont-Royal, QC H2V 4E4",
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "price": 1900,
+    "availability": false
+  },
+  {
+    "location": "5678 Avenue Monkland, Notre-Dame-de-Grâce (NDG), QC H4A 1E4",
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "price": 2200,
+    "availability": true
+  },
+  {
+    "location": "3456 Avenue Van Horne, Outremont, QC H2V 1R5",
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "price": 2000,
+    "availability": true
+  },
+  {
+    "location": "6789 Rue Wellington, Verdun, QC H4H 1T7",
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "price": 1400,
+    "availability": false
+  },
+  {
+    "location": "123 Avenue Cartier, Pointe-Claire, QC H9S 4R9",
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "price": 1500,
+    "availability": true
+  },
+  {
+    "location": "456 Boulevard Saint-Jean, Dorval, QC H9S 2B7",
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "price": 1300,
+    "availability": false
+  },
+  {
+    "location": "789 Beaconsfield Boulevard, Beaconsfield, QC H9W 4A7",
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "price": 2000,
+    "availability": true
+  },
+  {
+    "location": "2345 Boulevard des Sources, Kirkland, QC H9J 3H7",
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "price": 1600,
+    "availability": true
+  },
+  {
+    "location": "345 Rue Hyman, Dollard-des-Ormeaux, QC H9B 1L5",
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "price": 1200,
+    "availability": false
   }
 ]
