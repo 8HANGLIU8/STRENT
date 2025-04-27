@@ -6,8 +6,11 @@ const cors = require('cors');
 app.use(cors());
 app.use(express.json());
 
+
+
 const uri = process.env.MONGODB_URI; // <--- THIS pulls from .env
 const client = new MongoClient(uri);
+
 
 async function main() {
   await client.connect();
@@ -16,6 +19,7 @@ async function main() {
   const db = client.db('strentdb'); 
   const usersCollection = db.collection('users');
   const ownersCollection = db.collection('owners');
+  const ApartListingsCollection = db.collection('ApartListings');
 
   app.get('/test-db', async (req, res) => {
     try {
@@ -94,10 +98,27 @@ async function main() {
       res.status(500).send({ message: "Internal server error", error: error.message });
     }
   });
+
+  app.post('/rent', async (req, res) => {
+    const newApartment = req.body;  // 👈 gets the form data from the frontend
+  
+    try {
+      const result = await ApartListingsCollection.insertOne(newApartment); // 👈 insert into MongoDB
+      res.status(201).send({ message: 'Apartment added successfully', apartmentId: result.insertedId });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ message: 'Error adding apartment', error: error.message });
+    }
+  });
+
+
+  };
+  
   
   app.listen(3001, () => {
     console.log('Server running on http://localhost:3001');
   });
-}
+  
+
 
 main().catch(console.error);
