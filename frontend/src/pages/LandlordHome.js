@@ -10,4 +10,4 @@ function LandlordHome() {
   );
 }
 
-export default LandlordHome;
+export default LandlordHome; 
