@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -11,6 +13,8 @@ export default function SignUp() {
     password: '',
     confirmPassword: ''
   });
+
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,7 +29,8 @@ export default function SignUp() {
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match!");
       return;
-    } 
+    }
+    setLoading(true);
     try {
       const response = await fetch('http://localhost:3001/users', {
         method: 'POST',
@@ -43,17 +48,25 @@ export default function SignUp() {
     } catch (error) {
       console.error('Error:', error);
       alert('Failed to create account.');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[rgb(56,124,160)] p-6">
-      <div className="bg-white p-10 rounded-2xl shadow-lg w-full max-w-lg">
-        <h2 className="text-3xl font-semibold text-center mb-6" style={{ color: "rgb(56,124,160)" }}>Sign Up</h2>
-        <form className="space-y-4" onSubmit={handleSubmit}>
-        <select
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-green-100 to-blue-100 p-6">
+      <motion.div 
+        className="bg-white p-10 rounded-2xl shadow-2xl w-full max-w-lg"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+        <h2 className="text-4xl font-extrabold text-center mb-6 text-gray-800 drop-shadow-md">Create an Account</h2>
+
+        <form className="space-y-5" onSubmit={handleSubmit}>
+          <select
             name="role"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             value={formData.role}
             onChange={handleChange}
           >
@@ -63,13 +76,13 @@ export default function SignUp() {
 
           {formData.role === "Tenant" && (
             <input
-            type="text"
-            name="institution"
-            placeholder="Institution"
-            required
-            onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
-          />
+              type="text"
+              name="institution"
+              placeholder="Institution"
+              required
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
           )}
 
           <input
@@ -78,7 +91,7 @@ export default function SignUp() {
             placeholder="First Name"
             required
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           <input
             type="text"
@@ -86,7 +99,7 @@ export default function SignUp() {
             placeholder="Last Name"
             required
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           <input
             type="number"
@@ -94,17 +107,15 @@ export default function SignUp() {
             placeholder="Age"
             required
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
-          
-          
           <input
             type="email"
             name="email"
             placeholder="Email Address"
             required
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           <input
             type="password"
@@ -112,7 +123,7 @@ export default function SignUp() {
             placeholder="Password"
             required
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           <input
             type="password"
@@ -120,19 +131,27 @@ export default function SignUp() {
             placeholder="Confirm Password"
             required
             onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
-          <button
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             type="submit"
-            className="w-full bg-[rgb(56,124,160)] text-white p-3 rounded-lg hover:bg-[rgb(46,104,140)] text-lg mt-4"
+            disabled={loading}
+            className="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-semibold shadow-md transition"
           >
-            Create Account
-          </button>
+            {loading ? 'Creating...' : 'Create Account'}
+          </motion.button>
         </form>
+
         <div className="mt-6 text-center text-gray-600 text-sm">
-          Already have an account? <a href="/login" className="text-[rgb(56,124,160)] hover:underline">Login</a>
+          Already have an account?{' '}
+          <Link to="/login" className="text-green-600 hover:underline font-semibold">
+            Login
+          </Link>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
