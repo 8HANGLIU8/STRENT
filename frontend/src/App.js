@@ -9,7 +9,6 @@ import Welcome from './pages/Welcome.js';
 function App() {
   return (
     <Router>
-      <Navbar /> {/* Add the Navbar here */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
