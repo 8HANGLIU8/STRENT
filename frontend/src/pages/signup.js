@@ -1,49 +1,95 @@
 import React, { useState } from "react";
 
 export default function SignUp() {
-  const [role, setRole] = useState("Tenant");
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    age: '',
+    institution: '',
+    role: 'Tenant',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:3001/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+      console.log('Success:', result);
+      alert('Account created successfully!');
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Failed to create account.');
+    }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-[rgb(56,124,160)] p-6">
       <div className="bg-white p-10 rounded-2xl shadow-lg w-full max-w-lg">
         <h2 className="text-3xl font-semibold text-center mb-6" style={{ color: "rgb(56,124,160)" }}>Sign Up</h2>
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <input
             type="text"
+            name="firstName"
             placeholder="First Name"
             required
+            onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
           />
           <input
             type="text"
+            name="lastName"
             placeholder="Last Name"
             required
+            onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
           />
           <input
             type="number"
+            name="age"
             placeholder="Age"
             required
+            onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
           />
           <input
             type="text"
+            name="institution"
             placeholder="Institution"
             required
+            onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
           />
           <select
+            name="role"
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
+            value={formData.role}
+            onChange={handleChange}
           >
             <option value="Tenant">Tenant</option>
             <option value="Landlord">Landlord</option>
           </select>
           <input
             type="email"
+            name="email"
             placeholder="Email Address"
             required
+            onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
           />
           <input
@@ -54,8 +100,10 @@ export default function SignUp() {
           />
           <input
             type="password"
+            name="confirmPassword"
             placeholder="Confirm Password"
             required
+            onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
           />
           <button
