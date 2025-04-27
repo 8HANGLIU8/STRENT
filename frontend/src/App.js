@@ -43,6 +43,7 @@ function RoutesWithUser() {
         <Route path="/messages" element={<Messages />} />
         <Route path="/404" element={<Error404 />} />
         <Route path="*" element={<Navigate to="/404" />} />
+        <Route path="/LandlordHome" element={<LandlordHome />} />
       </Routes>
     </Router>
   );
