@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import './style.css';
 
+
 export default function RentForm() {
   const [formData, setFormData] = useState({
     location: '',
