@@ -12,7 +12,7 @@ async function main() {
   await client.connect();
   console.log("Connected to MongoDB!");
 
-  const db = client.db('yourDatabaseName'); 
+  const db = client.db('strentdb'); 
   const usersCollection = db.collection('users');
 
   app.post('/users', async (req, res) => {
