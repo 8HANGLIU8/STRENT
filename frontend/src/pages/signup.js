@@ -107,7 +107,7 @@ export default function SignUp() {
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
           />
           <input
-            type="text"
+            type="password"
             name="password"
             placeholder="Password"
             required
