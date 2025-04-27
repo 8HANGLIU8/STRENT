@@ -22,6 +22,10 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    } 
     try {
       const response = await fetch('http://localhost:3001/users', {
         method: 'POST',
@@ -30,6 +34,10 @@ export default function SignUp() {
       });
 
       const result = await response.json();
+      if (!response.ok) {
+        alert(result.message);
+        return;
+      }
       console.log('Success:', result);
       alert('Account created successfully!');
     } catch (error) {
@@ -94,8 +102,10 @@ export default function SignUp() {
           />
           <input
             type="password"
+            name="password"
             placeholder="Password"
             required
+            onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
           />
           <input

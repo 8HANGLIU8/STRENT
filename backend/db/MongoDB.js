@@ -27,8 +27,22 @@ async function main() {
   
   app.post('/users', async (req, res) => {
     const newUser = req.body;
-    const result = await usersCollection.insertOne(newUser);
-    res.send(result);
+
+    try {
+      // Check if the user email already exists
+      const existingUser = await usersCollection.findOne({ email: newUser.email})
+      if (existingUser) {
+        return res.status(400).send({ message: "Email already exists"})
+      }
+      // if not, insert the new user
+      const result = await usersCollection.insertOne(newUser);
+      res.status(201).send({message: "User created successfully", userId: result.insertedId});
+    }
+    catch (error) {
+      console.error("Error inserting user:", error);
+      res.status(500).send({ message: "Failed to create user", error: error.message });
+    }
+    
   });
 
   app.get('/users', async (req, res) => {
