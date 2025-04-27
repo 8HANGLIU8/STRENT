@@ -26,7 +26,11 @@ export default function Login() { // not App anymore
           </button>
         </form>
         <div className="mt-6 text-center text-gray-600 text-sm">
+<<<<<<< HEAD:frontend/src/pages/Login/index.js
           Don't have an account? <a href="/signup" className="text-[rgb(56,124,160)] hover:underline">Register</a>
+=======
+          Don't have an account? <a href="./signup" className="text-[rgb(56,124,160)] hover:underline">Register</a>
+>>>>>>> 8c3ecb75b7d30d42ee7320c8de84e8d6d917af27:frontend/src/pages/login.js
         </div>
       </div>
     </div>
