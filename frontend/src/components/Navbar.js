@@ -1,25 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { UserCircleIcon } from '@heroicons/react/24/outline';
 
-function Navbar() {
+function NavBar() {
   return (
-    <nav className="bg-gray-800 text-white p-4">
-      <div className="max-w-4xl mx-auto flex space-x-4">
-        <Link to="/" className="text-lg font-semibold hover:underline">
-          Strent
-        </Link>
-        <Link to="/home" className="text-lg hover:underline">
+    <nav className="bg-gray-800 text-white p-4 flex justify-between items-center">
+      <div className="text-xl font-bold">
+        <Link to="/">Strent</Link>
+      </div>
+      <div className="flex space-x-4 items-center">
+        <Link to="/" className="hover:underline">
           Home
         </Link>
-        <Link to="/login" className="text-lg hover:underline">
+        <Link to="/login" className="hover:underline">
           Login
         </Link>
-        <Link to="/signup" className="text-lg hover:underline">
+        <Link to="/signup" className="hover:underline">
           Sign Up
+        </Link>
+        <Link to="/profile">
+          <UserCircleIcon className="h-8 w-8 text-white hover:text-gray-300" />
         </Link>
       </div>
     </nav>
   );
 }
 
-export default Navbar;
+export default NavBar;

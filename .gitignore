@@ -20,3 +20,4 @@ backend/.env
 
 # IDE settings
 .vscode/
+.env

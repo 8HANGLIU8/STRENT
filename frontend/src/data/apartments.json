@@ -1,28 +1,82 @@
-
-
 [
-    {
-      "id": 1,
-      "price": 900,
-      "location": "1230 Rue Peel, Montréal, QC",
-      "university": "McGill",
-      "bedrooms": 2,
-      "bathrooms": 1
-    },
-    {
-      "id": 2,
-      "price": 750,
-      "location": "1455 Boulevard de Maisonneuve Ouest, Montréal, QC",
-      "university": "Concordia",
-      "bedrooms": 1,
-      "bathrooms": 1
-    },
-    {
-      "id": 3,
-      "price": 1100,
-      "location": "3200 Rue Édouard-Montpetit, Montréal, QC",
-      "university": "UDEM",
-      "bedrooms": 3,
-      "bathrooms": 2
-    }
-  ]
+  {
+    "id": 1,
+    "location": "1230 Rue Peel, Montréal, QC",
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "price": 900,
+    "rating": 4.5
+  },
+  {
+    "id": 2,
+    "location": "1455 Boulevard de Maisonneuve Ouest, Montréal, QC",
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "price": 750,
+    "rating": 4.0
+  },
+  {
+    "id": 3,
+    "location": "3200 Rue Édouard-Montpetit, Montréal, QC",
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "price": 1100,
+    "rating": 3.8
+  },
+  {
+    "id": 4,
+    "location": "845 Rue Sherbrooke Ouest, Montréal, QC",
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "price": 850,
+    "rating": 4.2
+  },
+  {
+    "id": 5,
+    "location": "1450 Rue Guy, Montréal, QC",
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "price": 950,
+    "rating": 4.1
+  },
+  {
+    "id": 6,
+    "location": "2940 Chemin de la Côte-Sainte-Catherine, Montréal, QC",
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "price": 1000,
+    "rating": 3.9
+  },
+  {
+    "id": 7,
+    "location": "3480 Rue Saint-Denis, Montréal, QC",
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "price": 800,
+    "rating": 4.3
+  },
+  {
+    "id": 8,
+    "location": "405 Rue Sainte-Catherine Est, Montréal, QC",
+    "bedrooms": 3,
+    "bathrooms": 1,
+    "price": 1200,
+    "rating": 4.0
+  },
+  {
+    "id": 9,
+    "location": "6880 Avenue Fielding, Montréal, QC",
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "price": 875,
+    "rating": 3.7
+  },
+  {
+    "id": 10,
+    "location": "5150 Boulevard Décarie, Montréal, QC",
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "price": 700,
+    "rating": 4.4
+  }
+]
