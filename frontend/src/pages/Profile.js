@@ -5,50 +5,42 @@ import { useUser } from '../context/UserContext';
 function Profile() {
   const { user, setUser } = useUser();
   const [activeSection, setActiveSection] = useState('my-profile');
-  const [firstName] = useState(user?.firstName || ''); // Remove setter since field is read-only
-  const [lastName] = useState(user?.lastName || ''); // Remove setter since field is read-only
-  const [age] = useState(user?.age || ''); // Remove setter since field is read-only
-  const [institution] = useState(user?.institution || ''); // Remove setter since field is read-only
+  const [firstName] = useState(user?.firstName || '');
+  const [lastName] = useState(user?.lastName || '');
+  const [age] = useState(user?.age || '');
+  const [institution] = useState(user?.institution || '');
   const [studyProgram, setStudyProgram] = useState(user?.studyProgram || '');
   const [description, setDescription] = useState(user?.description || '');
 
-  const handleSave = () => {
-    // Update user context with editable fields only
-    setUser({ ...user, studyProgram, description });
+  const handleSave = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/update-user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: user.email,
+          studyProgram,
+          description
+        }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setUser({ ...user, studyProgram, description });
+        alert('Profile updated successfully!');
+      } else {
+        alert(data.message || 'Failed to update profile');
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      alert('Error connecting to the server');
+    }
   };
 
   const renderSection = () => {
     switch (activeSection) {
-      case 'roommate-preferences':
-        return (
-          <div className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Roommate Preferences</h2>
-            <p className="text-gray-600 mb-4">
-              Set your preferences for finding the perfect roommate.
-            </p>
-            <form>
-              <div className="mb-4">
-                <label className="block text-gray-700 mb-2">Preferred Gender</label>
-                <select className="w-full p-2 border rounded-lg">
-                  <option>Any</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                </select>
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 mb-2">Smoking Preference</label>
-                <select className="w-full p-2 border rounded-lg">
-                  <option>No Preference</option>
-                  <option>Non-Smoker</option>
-                  <option>Smoker</option>
-                </select>
-              </div>
-              <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-                Save Preferences
-              </button>
-            </form>
-          </div>
-        );
       case 'billing-info':
         return (
           <div className="p-6">
@@ -130,34 +122,34 @@ function Profile() {
         <h2 className="text-xl font-bold mb-4">Profile Settings</h2>
         <ul className="space-y-2">
           <li>
-            <button
-              onClick={() => setActiveSection('my-profile')}
-              className={`w-full text-left p-2 rounded-lg ${
+            <Link
+              to="/profile"
+              className={`block w-full text-left p-2 rounded-lg ${
                 activeSection === 'my-profile' ? 'bg-gray-600' : 'hover:bg-gray-700'
               }`}
             >
               My Profile
-            </button>
+            </Link>
           </li>
           <li>
-            <button
-              onClick={() => setActiveSection('roommate-preferences')}
-              className={`w-full text-left p-2 rounded-lg ${
+            <Link
+              to="/roommate-preferences"
+              className={`block w-full text-left p-2 rounded-lg ${
                 activeSection === 'roommate-preferences' ? 'bg-gray-600' : 'hover:bg-gray-700'
               }`}
             >
               Roommate Preferences
-            </button>
+            </Link>
           </li>
           <li>
-            <button
-              onClick={() => setActiveSection('billing-info')}
-              className={`w-full text-left p-2 rounded-lg ${
+            <Link
+              to="/billing-info"
+              className={`block w-full text-left p-2 rounded-lg ${
                 activeSection === 'billing-info' ? 'bg-gray-600' : 'hover:bg-gray-700'
               }`}
             >
               Billing Info
-            </button>
+            </Link>
           </li>
         </ul>
       </div>

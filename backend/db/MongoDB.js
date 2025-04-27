@@ -29,7 +29,6 @@ async function main() {
       }
     });
 
-    // 📨 POST /send-message
     app.post('/send-message', async (req, res) => {
       const { senderId, receiverId, text } = req.body;
 
@@ -142,11 +141,87 @@ async function main() {
             institution: user.institution || undefined,
             age: user.age,
             studyProgram: user.studyProgram || undefined,
-            description: user.description || undefined
+            description: user.description || undefined,
+            preferredGender: user.preferredGender || undefined,
+            smokingPreference: user.smokingPreference || undefined,
+            sleepSchedule: user.sleepSchedule || undefined,
+            cleanlinessLevel: user.cleanlinessLevel || undefined,
+            socialPreference: user.socialPreference || undefined,
+            studyHabits: user.studyHabits || undefined,
+            petPreference: user.petPreference || undefined,
+            alcoholPreference: user.alcoholPreference || undefined,
+            dietaryPreference: user.dietaryPreference || undefined,
+            noiseTolerance: user.noiseTolerance || undefined,
+            programOfStudy: user.programOfStudy || undefined
           }
         });
       } catch (error) {
         console.error('Login error:', error);
+        res.status(500).send({ message: "Internal server error", error: error.message });
+      }
+    });
+
+    app.post('/update-user', async (req, res) => {
+      const { 
+        email, 
+        studyProgram, 
+        description, 
+        preferredGender, 
+        smokingPreference,
+        sleepSchedule,
+        cleanlinessLevel,
+        socialPreference,
+        studyHabits,
+        petPreference,
+        alcoholPreference,
+        dietaryPreference,
+        noiseTolerance,
+        programOfStudy
+      } = req.body;
+
+      if (!email) {
+        return res.status(400).send({ message: "Email is required" });
+      }
+
+      try {
+        let user = await usersCollection.findOne({ email });
+        let collection = usersCollection;
+
+        if (!user) {
+          user = await ownersCollection.findOne({ email });
+          collection = ownersCollection;
+          if (!user) {
+            return res.status(404).send({ message: "User not found" });
+          }
+        }
+
+        const updateFields = {};
+        if (studyProgram !== undefined) updateFields.studyProgram = studyProgram;
+        if (description !== undefined) updateFields.description = description;
+        if (preferredGender !== undefined) updateFields.preferredGender = preferredGender;
+        if (smokingPreference !== undefined) updateFields.smokingPreference = smokingPreference;
+        if (sleepSchedule !== undefined) updateFields.sleepSchedule = sleepSchedule;
+        if (cleanlinessLevel !== undefined) updateFields.cleanlinessLevel = cleanlinessLevel;
+        if (socialPreference !== undefined) updateFields.socialPreference = socialPreference;
+        if (studyHabits !== undefined) updateFields.studyHabits = studyHabits;
+        if (petPreference !== undefined) updateFields.petPreference = petPreference;
+        if (alcoholPreference !== undefined) updateFields.alcoholPreference = alcoholPreference;
+        if (dietaryPreference !== undefined) updateFields.dietaryPreference = dietaryPreference;
+        if (noiseTolerance !== undefined) updateFields.noiseTolerance = noiseTolerance;
+        if (programOfStudy !== undefined) updateFields.programOfStudy = programOfStudy;
+
+        const result = await collection.updateOne(
+          { email },
+          { $set: updateFields }
+        );
+
+        if (result.modifiedCount === 0) {
+          return res.status(400).send({ message: "No changes made to user data" });
+        }
+
+        res.status(200).send({ message: "User updated successfully" });
+      } catch (error) {
+        console.error('Update user error:', error);
         res.status(500).send({ message: "Internal server error", error: error.message });
       }
     });
