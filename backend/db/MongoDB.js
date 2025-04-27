@@ -16,6 +16,7 @@ async function main() {
   const db = client.db('strentdb'); 
   const usersCollection = db.collection('users');
   const ownersCollection = db.collection('owners');
+  const messagesCollection = db.collection('messages');
 
   app.get('/test-db', async (req, res) => {
     try {
@@ -25,6 +26,31 @@ async function main() {
       res.status(500).send({ message: "Failed to connect to MongoDB", error: error.message });
     }
   });
+
+  // 📨 POST /send-message
+app.post('/send-message', async (req, res) => {
+  const { senderId, receiverId, text } = req.body;
+
+  if (!senderId || !receiverId || !text) {
+    return res.status(400).send({ message: "Missing fields" });
+  }
+
+  try {
+    const newMessage = {
+      senderId,
+      receiverId,
+      text,
+      timestamp: new Date()
+    };
+
+    const result = await messagesCollection.insertOne(newMessage);
+    res.status(201).send({ message: "Message sent!", messageId: result.insertedId });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Failed to send message" });
+  }
+});
   
   app.post('/users', async (req, res) => {
     const newUser = req.body;
