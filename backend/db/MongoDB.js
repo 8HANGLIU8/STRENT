@@ -29,6 +29,7 @@ async function main() {
       }
     });
 
+    // 📨 POST /send-message
     app.post('/send-message', async (req, res) => {
       const { senderId, receiverId, text } = req.body;
 
@@ -110,28 +111,26 @@ async function main() {
     app.post('/login', async (req, res) => {
       const { email, password } = req.body;
 
-      console.log('Login attempt with email:', email); // Debug log
+      console.log('Login attempt with email:', email);
 
       try {
-        // First, check the users collection (for tenants)
         let user = await usersCollection.findOne({ email });
-        console.log('User in users collection:', user); // Debug log
+        console.log('User in users collection:', user);
 
         if (!user) {
-          // If not found in users, check the owners collection (for landlords)
           user = await ownersCollection.findOne({ email });
-          console.log('User in owners collection:', user); // Debug log
+          console.log('User in owners collection:', user);
           if (!user) {
             return res.status(404).send({ message: "User not found" });
           }
         }
 
         if (user.password !== password) {
-          console.log('Password mismatch for user:', user.email); // Debug log
+          console.log('Password mismatch for user:', user.email);
           return res.status(401).send({ message: "Incorrect password" });
         }
 
-        console.log('Login successful for user:', user.email); // Debug log
+        console.log('Login successful for user:', user.email);
         res.send({
           message: "Login successful",
           user: {
