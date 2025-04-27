@@ -15,6 +15,7 @@ async function main() {
 
   const db = client.db('strentdb'); 
   const usersCollection = db.collection('users');
+  const ownersCollection = db.collection('owners');
 
   app.get('/test-db', async (req, res) => {
     try {
@@ -27,22 +28,36 @@ async function main() {
   
   app.post('/users', async (req, res) => {
     const newUser = req.body;
-
+  
     try {
-      // Check if the user email already exists
-      const existingUser = await usersCollection.findOne({ email: newUser.email})
-      if (existingUser) {
-        return res.status(400).send({ message: "Email already exists"})
+      if (newUser.role === 'Landlord') {
+        // 🔥 Save to owners collection
+  
+        // Check if landlord email already exists
+        const existingOwner = await ownersCollection.findOne({ email: newUser.email });
+        if (existingOwner) {
+          return res.status(400).send({ message: "Landlord account with this email already exists" });
+        }
+  
+        const result = await ownersCollection.insertOne(newUser);
+        return res.status(201).send({ message: "Landlord created successfully!", userId: result.insertedId });
+  
+      } else {
+        // 🔥 Save to users collection (Tenant)
+  
+        const existingUser = await usersCollection.findOne({ email: newUser.email });
+        if (existingUser) {
+          return res.status(400).send({ message: "Tenant account with this email already exists" });
+        }
+  
+        const result = await usersCollection.insertOne(newUser);
+        return res.status(201).send({ message: "Tenant created successfully!", userId: result.insertedId });
       }
-      // if not, insert the new user
-      const result = await usersCollection.insertOne(newUser);
-      res.status(201).send({message: "User created successfully", userId: result.insertedId});
+  
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ message: "Error creating user/owner." });
     }
-    catch (error) {
-      console.error("Error inserting user:", error);
-      res.status(500).send({ message: "Failed to create user", error: error.message });
-    }
-    
   });
 
   app.get('/users', async (req, res) => {
@@ -50,6 +65,36 @@ async function main() {
     res.send(users);
   });
 
+  app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+  
+    try {
+      const user = await usersCollection.findOne({ email });
+  
+      if (!user) {
+        return res.status(404).send({ message: "User not found" });
+      }
+  
+      if (user.password !== password) {/*!!!*/
+        return res.status(401).send({ message: "Incorrect password" });
+      }
+  
+      res.send({
+        message: "Login successful",
+        user: {
+          id: user._id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          role: user.role,
+          institution: user.institution
+        }
+      });
+    } catch (error) {
+      res.status(500).send({ message: "Internal server error", error: error.message });
+    }
+  });
+  
   app.listen(3001, () => {
     console.log('Server running on http://localhost:3001');
   });

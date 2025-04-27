@@ -51,6 +51,27 @@ export default function SignUp() {
       <div className="bg-white p-10 rounded-2xl shadow-lg w-full max-w-lg">
         <h2 className="text-3xl font-semibold text-center mb-6" style={{ color: "rgb(56,124,160)" }}>Sign Up</h2>
         <form className="space-y-4" onSubmit={handleSubmit}>
+        <select
+            name="role"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
+            value={formData.role}
+            onChange={handleChange}
+          >
+            <option value="Tenant">Tenant</option>
+            <option value="Landlord">Landlord</option>
+          </select>
+
+          {formData.role === "Tenant" && (
+            <input
+            type="text"
+            name="institution"
+            placeholder="Institution"
+            required
+            onChange={handleChange}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
+          />
+          )}
+
           <input
             type="text"
             name="firstName"
@@ -75,23 +96,8 @@ export default function SignUp() {
             onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
           />
-          <input
-            type="text"
-            name="institution"
-            placeholder="Institution"
-            required
-            onChange={handleChange}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
-          />
-          <select
-            name="role"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none"
-            value={formData.role}
-            onChange={handleChange}
-          >
-            <option value="Tenant">Tenant</option>
-            <option value="Landlord">Landlord</option>
-          </select>
+          
+          
           <input
             type="email"
             name="email"
