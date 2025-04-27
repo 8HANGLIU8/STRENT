@@ -15,6 +15,15 @@ async function main() {
   const db = client.db('strentdb'); 
   const usersCollection = db.collection('users');
 
+  app.get('/test-db', async (req, res) => {
+    try {
+      const collections = await db.listCollections().toArray();
+      res.send({ message: "Connected to MongoDB!", collections });
+    } catch (error) {
+      res.status(500).send({ message: "Failed to connect to MongoDB", error: error.message });
+    }
+  });
+  
   app.post('/users', async (req, res) => {
     const newUser = req.body;
     const result = await usersCollection.insertOne(newUser);
