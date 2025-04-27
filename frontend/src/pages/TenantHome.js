@@ -193,7 +193,7 @@ function TenantHome() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         <div className="p-4 text-center bg-white shadow">
-          <h1 className="text-3xl font-bold">Hello, Student!</h1>
+          <h1 className="text-3xl font-bold">Hello, {user.firstName}!</h1>
           <p className="text-lg mt-2">Explore rentals on Strent</p>
           {/* Checkboxes and Search Bar */}
           <div className="flex justify-center items-center mt-4 space-x-4">

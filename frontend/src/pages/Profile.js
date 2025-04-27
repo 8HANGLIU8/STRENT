@@ -5,14 +5,16 @@ import { useUser } from '../context/UserContext';
 function Profile() {
   const { user, setUser } = useUser();
   const [activeSection, setActiveSection] = useState('my-profile');
-  const [name, setName] = useState('Félix');
-  const [age, setAge] = useState('20');
-  const [institution, setInstitution] = useState(user.institution || 'McGill University');
-  const [studyProgram, setStudyProgram] = useState('Physics');
-  const [description, setDescription] = useState('I’m a physics student passionate about robotics and parkour.');
+  const [firstName] = useState(user?.firstName || ''); // Remove setter since field is read-only
+  const [lastName] = useState(user?.lastName || ''); // Remove setter since field is read-only
+  const [age] = useState(user?.age || ''); // Remove setter since field is read-only
+  const [institution] = useState(user?.institution || ''); // Remove setter since field is read-only
+  const [studyProgram, setStudyProgram] = useState(user?.studyProgram || '');
+  const [description, setDescription] = useState(user?.description || '');
 
   const handleSave = () => {
-    setUser({ ...user, institution });
+    // Update user context with editable fields only
+    setUser({ ...user, studyProgram, description });
   };
 
   const renderSection = () => {
@@ -69,31 +71,28 @@ function Profile() {
             <h2 className="text-xl font-semibold mb-4">My Profile</h2>
             <div className="space-y-4">
               <div>
+                <label className="block text-gray-700 mb-1">First Name</label>
+                <p className="w-full p-2 border rounded-lg bg-gray-200 text-gray-500">
+                  {firstName || 'Not specified'}
+                </p>
+              </div>
+              <div>
                 <label className="block text-gray-700 mb-1">Name</label>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full p-2 border rounded-lg"
-                />
+                <p className="w-full p-2 border rounded-lg bg-gray-200 text-gray-500">
+                  {lastName || 'Not specified'}
+                </p>
               </div>
               <div>
                 <label className="block text-gray-700 mb-1">Age</label>
-                <input
-                  type="number"
-                  value={age}
-                  onChange={(e) => setAge(e.target.value)}
-                  className="w-full p-2 border rounded-lg"
-                />
+                <p className="w-full p-2 border rounded-lg bg-gray-200 text-gray-500">
+                  {age !== undefined ? age : 'Not available'}
+                </p>
               </div>
               <div>
                 <label className="block text-gray-700 mb-1">Institution</label>
-                <input
-                  type="text"
-                  value={institution}
-                  onChange={(e) => setInstitution(e.target.value)}
-                  className="w-full p-2 border rounded-lg"
-                />
+                <p className="w-full p-2 border rounded-lg bg-gray-200 text-gray-500">
+                  {institution || 'Not specified'}
+                </p>
               </div>
               <div>
                 <label className="block text-gray-700 mb-1">Study Program</label>
@@ -101,7 +100,7 @@ function Profile() {
                   type="text"
                   value={studyProgram}
                   onChange={(e) => setStudyProgram(e.target.value)}
-                  className="w-full p-2 border rounded-lg"
+                  className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
               <div>
@@ -109,7 +108,7 @@ function Profile() {
                 <textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full p-2 border rounded-lg"
+                  className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   rows="4"
                 />
               </div>
