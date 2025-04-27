@@ -1,8 +1,9 @@
 require('dotenv').config();  // load .env variables
 const { MongoClient } = require('mongodb');
 const express = require('express');
-
 const app = express();
+const cors = require('cors');
+app.use(cors());
 app.use(express.json());
 
 const uri = process.env.MONGODB_URI; // <--- THIS pulls from .env
