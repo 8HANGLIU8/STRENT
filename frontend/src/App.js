@@ -14,6 +14,7 @@ import ApartListings from './pages/ApartListings';
 import { UserProvider } from './context/UserContext';
 import Messages from './pages/messages.js';
 import RoommatePreferences from './pages/RoommatePreferences';
+import HouseAnimation from './components/HouseAnimation.jsx';
 
 // Child component to handle routes with access to user context
 function RoutesWithUser() {
@@ -21,6 +22,7 @@ function RoutesWithUser() {
 
   return (
     <Router>
+      <HouseAnimation />
       <Navbar />
       <Routes>
         <Route
