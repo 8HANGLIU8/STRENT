@@ -26,7 +26,7 @@ export default function Login() { // not App anymore
           </button>
         </form>
         <div className="mt-6 text-center text-gray-600 text-sm">
-          Don't have an account? <a href="#" className="text-[rgb(56,124,160)] hover:underline">Register</a>
+          Don't have an account? <a href="./signup" className="text-[rgb(56,124,160)] hover:underline">Register</a>
         </div>
       </div>
     </div>
