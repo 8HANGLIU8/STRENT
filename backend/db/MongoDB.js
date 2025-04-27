@@ -15,7 +15,6 @@ async function main() {
   const db = client.db('strentdb'); 
   const usersCollection = db.collection('users');
 
-  // --- 🔵 ADD YOUR TEST ENDPOINT HERE ---
   app.get('/test-db', async (req, res) => {
     try {
       const collections = await db.listCollections().toArray();
@@ -24,8 +23,7 @@ async function main() {
       res.status(500).send({ message: "Failed to connect to MongoDB", error: error.message });
     }
   });
-  // --- 🔵 END TEST ENDPOINT ---
-
+  
   app.post('/users', async (req, res) => {
     const newUser = req.body;
     const result = await usersCollection.insertOne(newUser);
