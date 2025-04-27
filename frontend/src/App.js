@@ -6,6 +6,7 @@ import Error404 from './pages/error404.js';
 import Home from './pages/Home.js';
 import Welcome from './pages/Welcome.js';
 import ApartListings from './pages/ApartListings.js';
+import Messages from './pages/messages.js';
 
 
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={<Navigate to="/" />} /> {/* redirect */}
         <Route path="/Welcome" element={<Welcome />} />
+        <Route path="/messages" element={<Messages />} />
         <Route path="*" element={<Error404 />} />
         <Route path="/ApartListings" element={<ApartListings />} />
       </Routes>
