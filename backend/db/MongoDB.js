@@ -19,11 +19,8 @@ async function main() {
   const db = client.db('strentdb'); 
   const usersCollection = db.collection('users');
   const ownersCollection = db.collection('owners');
-<<<<<<< HEAD
   const ApartListingsCollection = db.collection('ApartListings');
-=======
   const messagesCollection = db.collection('messages');
->>>>>>> e893a3b3dea968601d54628479df5e04d5b79bf1
 
   app.get('/test-db', async (req, res) => {
     try {
